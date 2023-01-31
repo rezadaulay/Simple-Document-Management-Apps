@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserAccountController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('account', [UserAccountController::class, 'show'])->name('account');
+    Route::get('update-account', [UserAccountController::class, 'create'])->name('update-account-form');
+    Route::post('update-account', [UserAccountController::class, 'store'])->name('update-account');
+    
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

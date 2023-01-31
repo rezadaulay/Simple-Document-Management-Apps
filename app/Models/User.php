@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\FieldsType;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,9 @@ class User extends Authenticatable
         'email',
         'phone_number',
         'password',
+        'company_name',
+        'division_name',
+        'profile_picture'
     ];
 
     /**
@@ -44,10 +48,37 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['profile_picture_url'];
+
     public function getHashFields(): Array
     {
         return [
             'password'
         ];
+    }
+
+    public function getFileFields(): Array
+    {
+        return [
+            'profile_picture'
+        ];
+    }
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return bool
+     */
+    public function getProfilePictureUrlAttribute()
+    {
+        if (is_null($this->attributes['profile_picture'])) {
+            return null;
+        }
+        return Storage::url($this->attributes['profile_picture']);
     }
 }

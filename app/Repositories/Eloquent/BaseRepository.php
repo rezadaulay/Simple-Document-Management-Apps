@@ -6,6 +6,7 @@ use App\Repositories\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class BaseRepository implements EloquentRepositoryInterface 
 {     
@@ -91,7 +92,13 @@ class BaseRepository implements EloquentRepositoryInterface
         $data = $this->find($id);
         $fills = [];
         foreach ($this->model->getFillable() as $fillable) {
-            if ($fillable !== 'id' && (isset($inputs[$fillable]) && !is_null($inputs[$fillable]) && trim($inputs[$fillable]) !== '')) {
+            if (in_array($fillable, $this->model->getFileFields()) && isset($inputs[$fillable]) && !is_null($inputs[$fillable]) && request()->hasFile($fillable)) {
+                if (!is_null($data->{$fillable})) {
+                    Storage::delete($data->{$fillable});
+                }
+                $value = request()->file($fillable)->store('uploads/' . date('Y/m/d'));
+                $fills[$fillable] = $value;
+            } else if ($fillable !== 'id' && (isset($inputs[$fillable]) && !is_null($inputs[$fillable]) && trim($inputs[$fillable]) !== '')) {
                 if (in_array($fillable, $this->model->getHashFields())) {
                     $fills[$fillable] = Hash::make($inputs[$fillable]);
                 } else {

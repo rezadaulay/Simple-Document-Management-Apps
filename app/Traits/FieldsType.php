@@ -9,4 +9,9 @@ trait FieldsType
     {
         return [];
     }
+
+    public function getFileFields(): Array
+    {
+        return [];
+    }
 }
