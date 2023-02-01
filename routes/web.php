@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAccountController;
 use App\Http\Controllers\DocumentManagementController;
+use App\Http\Controllers\LogicalTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,7 @@ use App\Http\Controllers\DocumentManagementController;
 */
 
 require __DIR__.'/auth.php';
+// Route::get('logical-test', LogicalTestController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('account', [UserAccountController::class, 'show'])->name('account');
