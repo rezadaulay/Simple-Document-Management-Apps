@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "89d412f3-d51e-454d-9c46-8dc4b74a6148",
+		"name": "Kodegiri Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Document",
+			"item": [
+				{
+					"name": "Listing",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "User-Source-Id",
+								"value": "6048a2ad-46f4-4a3f-8a0f-dd61be2544c8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/document-managements?order=title&ascending=1&page=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"document-managements"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "donasi",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "title"
+								},
+								{
+									"key": "ascending",
+									"value": "1"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Donasi, infaq, sedekah,",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Ayo Donasi, infaq, sedekah",
+									"type": "text"
+								},
+								{
+									"key": "signing_type",
+									"value": "upload",
+									"description": "Isi dengan: upload atau manual",
+									"type": "text"
+								},
+								{
+									"key": "signing_image",
+									"description": "Wajib diisi jika signing_type = upload",
+									"type": "file",
+									"src": "/Users/rezadaulay/Downloads/3127195_c6f70915-577f-4cd4-834c-daf892265ef0.jpg.webp"
+								},
+								{
+									"key": "signing_manual",
+									"value": "",
+									"description": "Wajib diisi jika signing_type = manual",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "program_id",
+									"value": "12",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/document-managements",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"document-managements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Donasi, infaq, sedekah",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Ayo Donasi, infaq, sedekah",
+									"type": "text"
+								},
+								{
+									"key": "signing_type",
+									"value": "upload",
+									"description": "Isi dengan: upload atau manual",
+									"type": "text"
+								},
+								{
+									"key": "signing_image",
+									"description": "Wajib diisi jika signing_type = upload",
+									"type": "file",
+									"src": "/Users/rezadaulay/Downloads/Workflow Sistem Grosir Online - PT. Gerbang Pulsa Nasional.png"
+								},
+								{
+									"key": "signing_manual",
+									"value": "",
+									"description": "Wajib diisi jika signing_type = manual",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "program_id",
+									"value": "12",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "_method",
+									"value": "PATCH",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/document-managements/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"document-managements",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/document-managements/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"document-managements",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/document-managements/9",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"document-managements",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

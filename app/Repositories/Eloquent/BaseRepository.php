@@ -55,7 +55,10 @@ class BaseRepository implements EloquentRepositoryInterface
         $fills = [];
         foreach ($this->model->getFillable() as $fillable) {
             if ($fillable !== 'id' && (isset($inputs[$fillable]) && !is_null($inputs[$fillable]) && trim($inputs[$fillable]) !== '')) {
-                if (in_array($fillable, $this->model->getHashFields())) {
+                if (in_array($fillable, $this->model->getFileFields()) && isset($inputs[$fillable]) && !is_null($inputs[$fillable]) && request()->hasFile($fillable)) {
+                    $value = request()->file($fillable)->store('uploads/' . date('Y/m/d'));
+                    $fills[$fillable] = $value;
+                } else if (in_array($fillable, $this->model->getHashFields())) {
                     $fills[$fillable] = Hash::make($inputs[$fillable]);
                 } else {
                     $fills[$fillable] = $inputs[$fillable];
@@ -120,6 +123,13 @@ class BaseRepository implements EloquentRepositoryInterface
     public function delete(string $id): Void
     {
         $data = $this->find($id);
+        foreach ($this->model->getFillable() as $fillable) {
+            if (in_array($fillable, $this->model->getFileFields())) {
+                if (!is_null($data->{$fillable})) {
+                    Storage::delete($data->{$fillable});
+                }
+            }
+        }
         $data->delete();
     }
 }
